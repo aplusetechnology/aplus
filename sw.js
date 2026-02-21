@@ -1,49 +1,35 @@
 const cacheName = 'aplus-guide-v1';
 
-const staticAssets = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/logo.png',
-  '/document.pdf'
+const assets = [
+  './aplus/',
+  './aplus/index.html',
+  './aplus/manifest.json',
+  './aplus/logo.png',
+  './aplus/document.pdf'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(cacheName).then(cache => {
-      return cache.addAll(staticAssets);
-    })
+    caches.open(cacheName).then(cache => cache.addAll(assets))
   );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.filter(key => key !== cacheName)
-            .map(key => caches.delete(key))
-      );
-    })
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(key => key !== cacheName)
+      .map(key => caches.delete(key)))
+    )
   );
   self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
-  const request = event.request;
-
-  if (request.method !== 'GET') return;
-
+  if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(request).then(cachedResponse => {
-      return cachedResponse || fetch(request).then(networkResponse => {
-        return caches.open(cacheName).then(cache => {
-          cache.put(request, networkResponse.clone());
-          return networkResponse;
-        });
-      }).catch(() => {
-        return cachedResponse;
-      });
-    })
+    caches.match(event.request).then(response =>
+      response || fetch(event.request)
+    )
   );
 });
