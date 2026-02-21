@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>دليل نظام A-Plus المحاسبي</title>
 
-  <link rel="manifest" href="./manifest.json">
+  <!-- Manifest -->
+  <link rel="manifest" href="./aplus/manifest.json">
   <meta name="theme-color" content="#0f766e">
-  <link rel="apple-touch-icon" href="./logo.png">
+  <link rel="apple-touch-icon" href="./aplus/logo.png">
 
   <style>
     body{font-family:Tahoma, Arial, sans-serif; background:#f7f7f7; margin:0; color:#222; line-height:1.6;}
@@ -39,15 +40,13 @@
 </header>
 
 <div class="container">
-
   <div class="card">
     <h2>📘 الدليل المحاسبي</h2>
     <ul>
       <li><a href="https://youtu.be/qqw1yNJbH90" target="_blank">شرح الدليل المحاسبي</a></li>
-      <li><a href="./document.pdf" target="_blank" class="pdf-btn">📥 تحميل الدليل PDF</a></li>
+      <li><a href="./aplus/document.pdf" target="_blank" class="pdf-btn">📥 تحميل الدليل PDF</a></li>
     </ul>
   </div>
-
 </div>
 
 <footer>
@@ -57,7 +56,7 @@
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js');
+    navigator.serviceWorker.register('./aplus/sw.js');
   });
 }
 
